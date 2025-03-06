@@ -1,9 +1,16 @@
 package com.leodev.hotels.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
+import java.util.Map;
 
-@org.springframework.context.annotation.Configuration
+@Configuration
 @ConfigurationProperties(prefix = "hotels")
-public class Configuration {
+@Data
+public class HotelsConfiguration {
+    private String msg;
+    private String buildVersion;
+    private Map<String, String> mailDetails;
 }
