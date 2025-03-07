@@ -18,10 +18,10 @@
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -34,7 +34,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -80,62 +83,62 @@
 					</image>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.26.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>pmd</goal>
-						</goals>
-						<configuration>
-							<sourceDirectory>src/main/java</sourceDirectory>
-							<reportFormat>xml</reportFormat>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-pmd-plugin</artifactId>-->
+<!--				<version>3.26.0</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>pmd</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<sourceDirectory>src/main/java</sourceDirectory>-->
+<!--							<reportFormat>xml</reportFormat>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.26.0</version>
-				<configuration>
-					<linkXref>true</linkXref>
-					<inputEncoding>utf-8</inputEncoding>
-					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.5</targetJdk>
-					<excludes>
-						<exclude>**/*Bean.java</exclude>
-						<exclude>**/generated/*.java</exclude>
-					</excludes>
-					<excludeRoots>
-						<excludeRoot>target/generated-sources/stubs</excludeRoot>
-					</excludeRoots>
-				</configuration>
-				<reportSets>
-					<reportSet><!-- by default, id = "default" -->
-						<reports><!-- select non-aggregate reports -->
-							<report>pmd</report>
-							<report>cpd</report>
-						</reports>
-					</reportSet>
-					<reportSet><!-- aggregate reportSet, to define in poms having modules -->
-						<id>aggregate</id>
-						<inherited>false</inherited> <!-- don't run aggregate in child modules -->
-						<reports>
-							<report>aggregate-pmd</report>
-							<report>aggregate-cpd</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
+<!--	<reporting>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-pmd-plugin</artifactId>-->
+<!--				<version>3.26.0</version>-->
+<!--				<configuration>-->
+<!--					<linkXref>true</linkXref>-->
+<!--					<inputEncoding>utf-8</inputEncoding>-->
+<!--					<minimumTokens>100</minimumTokens>-->
+<!--					<targetJdk>1.5</targetJdk>-->
+<!--					<excludes>-->
+<!--						<exclude>**/*Bean.java</exclude>-->
+<!--						<exclude>**/generated/*.java</exclude>-->
+<!--					</excludes>-->
+<!--					<excludeRoots>-->
+<!--						<excludeRoot>target/generated-sources/stubs</excludeRoot>-->
+<!--					</excludeRoots>-->
+<!--				</configuration>-->
+<!--				<reportSets>-->
+<!--					<reportSet>&lt;!&ndash; by default, id = "default" &ndash;&gt;-->
+<!--						<reports>&lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+<!--							<report>pmd</report>-->
+<!--							<report>cpd</report>-->
+<!--						</reports>-->
+<!--					</reportSet>-->
+<!--					<reportSet>&lt;!&ndash; aggregate reportSet, to define in poms having modules &ndash;&gt;-->
+<!--						<id>aggregate</id>-->
+<!--						<inherited>false</inherited> &lt;!&ndash; don't run aggregate in child modules &ndash;&gt;-->
+<!--						<reports>-->
+<!--							<report>aggregate-pmd</report>-->
+<!--							<report>aggregate-cpd</report>-->
+<!--						</reports>-->
+<!--					</reportSet>-->
+<!--				</reportSets>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</reporting>-->
 
 </project>
