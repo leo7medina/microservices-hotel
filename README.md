@@ -38,3 +38,10 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 
 #### Docker compose
 - docker compose up
+
+
+### Apagado de microservicios
+Metodo POST
+- http://192.168.0.103:8080/actuator/shutdown
+- http://192.168.0.103:8081/actuator/shutdown
+- http://192.168.0.103:8082/actuator/shutdown
