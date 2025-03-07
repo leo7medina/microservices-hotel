@@ -1,0 +1,69 @@
+services:
+
+  config-server:
+    image: leo7medina/config-server:latest
+    mem_limit: 800m
+    ports:
+      - 8085:8085
+    networks:
+      - leodev-network
+
+  hotels:
+    image: leo7medina/hotels:latest
+    mem_limit: 800m
+    ports:
+      - "8080:8080"
+    networks:
+      - leodev-network
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: config-server:http//config-server:8085/
+
+  rooms:
+    image: leo7medina/rooms:latest
+    mem_limit: 800m
+    ports:
+      - "8081:8081"
+    networks:
+      - leodev-network
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: config-server:http//config-server:8085/
+
+  reservations:
+    image: leo7medina/reservations:latest
+    mem_limit: 800m
+    ports:
+      - "8082:8082"
+    networks:
+      - leodev-network
+    depends_on:
+      - config-server
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CONFIG_IMPORT: config-server:http//config-server:8085/
+
+networks:
+  leodev-network:
