@@ -28,6 +28,7 @@ services:
       - leo-dev-network
     depends_on:
       - config-server
+      - eureka-server
     deploy:
       restart_policy:
         condition: on-failure
@@ -49,6 +50,7 @@ services:
       - leo-dev-network
     depends_on:
       - config-server
+      - eureka-server
     deploy:
       restart_policy:
         condition: on-failure
@@ -70,6 +72,7 @@ services:
       - leo-dev-network
     depends_on:
       - config-server
+      - eureka-server
     deploy:
       restart_policy:
         condition: on-failure
