@@ -4,9 +4,20 @@ services:
     image: leo7medina/config-server:latest
     mem_limit: 800m
     ports:
-      - 8085:8085
+      - "8085:8085"
     networks:
-      - leodev-network
+      - leo-dev-network
+
+  eureka-server:
+    image: leo7medina/eureka-server
+    mem_limit: 800m
+    ports:
+      - "8065:8065"
+    networks:
+      - leo-dev-network
+    environment:
+      EUREKA_HOSTNAME: eureka-server
+      SPRING_PROFILES_ACTIVE: prod
 
   hotels:
     image: leo7medina/hotels:latest
@@ -14,18 +25,20 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - leodev-network
+      - leo-dev-network
     depends_on:
       - config-server
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
+        delay: 10s
         max_attempts: 3
-        window: 120s
+        window: 800s
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http//configserver:8085/
+      SPRING_CONFIG_IMPORT: optional:config-server:http://configserver:8085/
+      CONFIG_SERVER: http://config-server:8085/
+      EUREKA_SERVER: http://eureka-server:8065/eureka/
 
   rooms:
     image: leo7medina/rooms:latest
@@ -33,18 +46,20 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - leodev-network
+      - leo-dev-network
     depends_on:
       - config-server
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
+        delay: 12s
         max_attempts: 3
-        window: 120s
+        window: 1000s
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http//configserver:8085/
+      SPRING_CONFIG_IMPORT: optional:config-server:http://configserver:8085/
+      CONFIG_SERVER: http://config-server:8085/
+      EUREKA_SERVER: http://eureka-server:8065/eureka/
 
   reservations:
     image: leo7medina/reservations:latest
@@ -52,18 +67,21 @@ services:
     ports:
       - "8082:8082"
     networks:
-      - leodev-network
+      - leo-dev-network
     depends_on:
       - config-server
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
+        delay: 14s
         max_attempts: 3
-        window: 120s
+        window: 1200s
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http//configserver:8085/
+      SPRING_CONFIG_IMPORT: optional:config-server:http://configserver:8085/
+      CONFIG_SERVER: http://config-server:8085/
+      EUREKA_SERVER: http://eureka-server:8065/eureka/
 
 networks:
-  leodev-network:
+  leo-dev-network:
+    driver: bridge
