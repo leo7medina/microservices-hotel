@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: configserver
   profiles:
     active: git
   cloud:
@@ -8,6 +8,7 @@ spring:
       server:
         git:
           uri: https://github.com/leo7medina/microservices-hotel
+          #uri: file://${user.home}/config-repo
           clone-on-start: true
           default-label: main
           search-paths: properties
