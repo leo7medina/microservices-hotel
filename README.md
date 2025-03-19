@@ -9,6 +9,8 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - Use de base datos H2
 - Creación de imagénes y contenedores con Docker
 - Configuración centralizada de microservicios
+- Registro y descubrimiento de microservicios
+- RestTemplate y Feing para comunicación entre microservicios
 
 ### Comandos realizados en este proyecto
 

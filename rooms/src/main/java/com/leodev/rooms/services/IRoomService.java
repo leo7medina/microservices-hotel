@@ -8,4 +8,6 @@ public interface IRoomService {
 	
 	List<Room> search();
 
+	List<Room> searchRoomByHotelId(long hotelId);
+
 }

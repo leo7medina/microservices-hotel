@@ -9,6 +9,7 @@ import com.leodev.rooms.config.RoomsConfiguration;
 import com.leodev.rooms.model.RoomsProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leodev.rooms.model.Room;
@@ -25,7 +26,12 @@ public class RoomController {
 	
 	@GetMapping("rooms")
 	public List<Room> search(){
-		return (List<Room>) this.service.search();	
+		return this.service.search();
+	}
+
+	@GetMapping("rooms/{hotelId}")
+	public List<Room> searchByHotelId(@PathVariable long hotelId){
+		return this.service.searchRoomByHotelId(hotelId);
 	}
 
 	@GetMapping("/rooms/read/properties")

@@ -9,7 +9,7 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "hotels")
 @Data
-public class HotelsConfiguration {
+public class HotelsPropertiesConfiguration {
     private String msg;
     private String buildVersion;
     private Map<String, String> mailDetails;
