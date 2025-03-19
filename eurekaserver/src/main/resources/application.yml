@@ -3,20 +3,20 @@ spring:
     name: eureka-server
   profile:
     active: default
-  config:
-    import: optional:configserver:http://localhost:8085/
-    uri: http://config-server:8085
-#server:
-#  port: 8065
+#  config:
+#    import: optional:configserver:http://localhost:8085/
+    #uri: http://config-server:8085
+server:
+  port: 8065
 #  servlet.context-path: /eureka
-#eureka:
-#  instance:
-#    hostname: localhost
-#  client:
-#    registerWithEureka: false
-#    fetchRegistry: false
-#    serviceUrl:
-#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+eureka:
+  instance:
+    hostname: ${EUREKA_HOSTNAME:localhost}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 
 #spring.application.name=eurekaserver
 ##spring.config.import=optional:configserver:http://localhost:8085/

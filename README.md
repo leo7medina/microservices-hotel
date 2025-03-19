@@ -17,12 +17,16 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - docker build . -t leo7medina/reservations
 - docker build . -t leo7medina/rooms
 - docker build . -t leo7medina/config-server
+- docker build . -t leo7medina/eureka-server
 
 #### Construir contenedores
-- docker run -d -p 8080:8080 --name hotels leo7medina/hotels
+- docker run -d -p 8080:8080 --name hotels -e CONFIG_SERVER=http://config-server:8085/ -e EUREKA_SERVER=http://eureka-server:8065/eureka/ leo7medina/hotels
 - docker run -d -p 8082:8082 --name reservations leo7medina/reservations
 - docker run -d -p 8081:8081 --name rooms leo7medina/rooms
 - docker run -d -p 8085:8085 --name config-server leo7medina/config-server
+- docker run -d -p 8065:8065 --name eureka-server -e DEUREKA_HOSTNAME=eureka-server leo7medina/eureka-server
+
+- --network leo-dev-demo-network
 
 #### Generando imagen usando BuildPack
 - mvn spring-boot:build-image
@@ -32,6 +36,7 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - docker push docker.io/leo7medina/reservations
 - docker push docker.io/leo7medina/rooms
 - docker push docker.io/leo7medina/config-server
+- docker push docker.io/leo7medina/eureka-server
 
 #### Login a DockerHub
 - docker login -u "usuario" -p "password" docker.io
@@ -45,3 +50,6 @@ Metodo POST
 - http://192.168.0.103:8080/actuator/shutdown
 - http://192.168.0.103:8081/actuator/shutdown
 - http://192.168.0.103:8082/actuator/shutdown
+
+### Saltar test
+-Dmaven.test.skip=true
