@@ -12,6 +12,8 @@ public interface IHotelService {
 	HotelRooms searchHotelById(long hotelId);
 
 	HotelRooms searchHotelByIdWithFeign(long hotelId);
+
+	HotelRooms searchHotelByIdWithoutRooms(long id);
 	
 
 }

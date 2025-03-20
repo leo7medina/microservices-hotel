@@ -41,7 +41,7 @@ public class HotelServiceImpl implements IHotelService {
 
 			Map<String, Long> pathVariable = new HashMap<>();
 			pathVariable.put("hotelId", hotelId);
-			List<Room> rooms = Arrays.asList(restTemplate.getForObject("http:localhost:8081/", Room[].class, pathVariable));
+			List<Room> rooms = Arrays.asList(restTemplate.getForObject("http://localhost:8081/rooms", Room[].class, pathVariable));
 			response.setHotelAddress(hotel.get().getHotelAddress());
 			response.setHotelName(hotel.get().getHotelName());
 			response.setHotelId(hotel.get().getHotelId());
@@ -60,6 +60,18 @@ public class HotelServiceImpl implements IHotelService {
 			response.setHotelName(hotel.get().getHotelName());
 			response.setHotelId(hotel.get().getHotelId());
 			response.setRooms(rooms);
+		}
+		return response;
+	}
+
+	@Override
+	public HotelRooms searchHotelByIdWithoutRooms(long id) {
+		HotelRooms response = new HotelRooms();
+		Optional<Hotel> hotel = hotelDao.findById(id);
+		if (hotel.isPresent()) {
+			response.setHotelAddress(hotel.get().getHotelAddress());
+			response.setHotelName(hotel.get().getHotelName());
+			response.setHotelId(hotel.get().getHotelId());
 		}
 		return response;
 	}

@@ -11,6 +11,10 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - Configuración centralizada de microservicios
 - Registro y descubrimiento de microservicios
 - RestTemplate y Feing para comunicación entre microservicios
+- Resilencia y tolerancia a fallos con Resilience4j
+  - Patron Circuit Breaker
+  - Metodo fallbackMethod
+  - Patron retry
 
 ### Comandos realizados en este proyecto
 

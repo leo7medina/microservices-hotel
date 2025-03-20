@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.leodev.hotels.config.HotelsPropertiesConfiguration;
 import com.leodev.hotels.model.HotelProperties;
 import com.leodev.hotels.model.HotelRooms;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +38,14 @@ public class HotelController {
 	}
 
 	@GetMapping("v2/hotels/{id}")
+	@CircuitBreaker(name = "searchHotelByIdWithFeignSupportCB", fallbackMethod = "searchHotelByIdWithOutRooms")
+	//@Retry(name = "searchHotelByIdWithFeignSupportRetry", fallbackMethod = "searchHotelByIdWithOutRooms")
 	public HotelRooms searchHotelByIdWithFeign(@PathVariable long id){
 		return this.service.searchHotelByIdWithFeign(id);
+	}
+
+	public HotelRooms searchHotelByIdWithOutRooms(@PathVariable long id, Throwable thr){
+		return this.service.searchHotelByIdWithoutRooms(id);
 	}
 
 	@GetMapping("/hotels/read/properties")
