@@ -1,5 +1,13 @@
 services:
 
+  zipking:
+    image: openzipkin/zipkin
+    mem_limit: 800m
+    ports:
+      - "9411:9411"
+    networks:
+      - leo-dev-network
+
   configserver:
     image: leo7medina/configserver:latest
     mem_limit: 800m
@@ -7,9 +15,12 @@ services:
       - "8085:8085"
     networks:
       - leo-dev-network
+    depends_on:
+      - zipking
     environment:
       SPRING_PROFILES_ACTIVE: git
       SPRING_APPLICATION_NAME: configserver
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
   eurekaserver:
     image: leo7medina/eurekaserver
@@ -22,6 +33,7 @@ services:
       SPRING_PROFILES_ACTIVE: default
       SPRING_APPLICATION_NAME: eurekaserver
       EUREKA_HOSTNAME: eurekaserver
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
   hotels:
     image: leo7medina/hotels:latest
@@ -44,6 +56,7 @@ services:
       SPRING_APPLICATION_NAME: hotels
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8085/
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
   rooms:
     image: leo7medina/rooms:latest
@@ -66,6 +79,7 @@ services:
       SPRING_APPLICATION_NAME: rooms
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8085/
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
   reservations:
     image: leo7medina/reservations:latest
@@ -88,6 +102,7 @@ services:
       SPRING_APPLICATION_NAME: reservations
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8085/
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
   gatewayserver:
     image: leo7medina/gatewayserver:latest
@@ -113,6 +128,7 @@ services:
       SPRING_APPLICATION_NAME: gatewayserver
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8085/
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipking:9411/api/v2/spans
 
 networks:
   leo-dev-network:

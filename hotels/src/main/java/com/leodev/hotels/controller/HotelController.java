@@ -10,6 +10,8 @@ import com.leodev.hotels.model.HotelProperties;
 import com.leodev.hotels.model.HotelRooms;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,8 @@ import com.leodev.hotels.services.IHotelService;
 
 @RestController
 public class HotelController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HotelController.class);
 	
 	@Autowired
 	private IHotelService service;
@@ -29,11 +33,13 @@ public class HotelController {
 
 	@GetMapping("hotels")
 	public List<Hotel> search(){
+		LOGGER.info("inicio metodo search");
 		return this.service.search();
 	}
 
 	@GetMapping("hotels/{id}")
 	public HotelRooms searchHotelById(@PathVariable long id){
+		LOGGER.info("inicio metodo searchHotelById");
 		return this.service.searchHotelById(id);
 	}
 
@@ -41,15 +47,18 @@ public class HotelController {
 	@CircuitBreaker(name = "searchHotelByIdWithFeignSupportCB", fallbackMethod = "searchHotelByIdWithOutRooms")
 	//@Retry(name = "searchHotelByIdWithFeignSupportRetry", fallbackMethod = "searchHotelByIdWithOutRooms")
 	public HotelRooms searchHotelByIdWithFeign(@PathVariable long id){
+		LOGGER.info("inicio metodo searchHotelByIdWithFeign");
 		return this.service.searchHotelByIdWithFeign(id);
 	}
 
 	public HotelRooms searchHotelByIdWithOutRooms(@PathVariable long id, Throwable thr){
+		LOGGER.info("inicio metodo searchHotelByIdWithOutRooms");
 		return this.service.searchHotelByIdWithoutRooms(id);
 	}
 
 	@GetMapping("/hotels/read/properties")
 	public String getProperties() throws JsonProcessingException {
+		LOGGER.info("inicio metodo getProperties");
 		ObjectWriter owj = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		HotelProperties hotelProperties = new HotelProperties();
 		hotelProperties.setMsg(hotelsConfiguration.getMsg());

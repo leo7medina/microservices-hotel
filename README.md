@@ -16,6 +16,9 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
   - Metodo fallbackMethod
   - Patron retry
 - Spring Cloud Gateway
+- Trazabilidad distribuida en microservicios
+  - Sleuth
+  - Zipkin
 
 ### Comandos realizados en este proyecto
 
@@ -28,7 +31,7 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - docker build . -t leo7medina/gatewayserver
 
 #### Construir contenedores
-- docker run -d -p 8080:8080 --name hotels -e CONFIG_SERVER=http://config-server:8085/ -e EUREKA_SERVER=http://eureka-server:8065/eureka/ leo7medina/hotels
+- docker run -d -p 8080:8080 --name hotels leo7medina/hotels
 - docker run -d -p 8082:8082 --name reservations leo7medina/reservations
 - docker run -d -p 8081:8081 --name rooms leo7medina/rooms
 - docker run -d -p 8085:8085 --name config-server leo7medina/config-server
@@ -62,3 +65,6 @@ Metodo POST
 
 ### Saltar test
 -Dmaven.test.skip=true
+
+### Zipkint con docker
+- docker run -d -p 9411:9411 --name zipkin openzipkin/zipkin

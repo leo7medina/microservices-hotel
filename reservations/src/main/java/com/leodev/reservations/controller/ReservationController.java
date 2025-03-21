@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.leodev.reservations.config.ReservationsConfiguration;
 import com.leodev.reservations.model.ReservationsProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,9 @@ import com.leodev.reservations.services.IReservationService;
 
 @RestController
 public class ReservationController {
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationController.class);
+
 	@Autowired
 	private IReservationService service;
 
@@ -25,11 +29,13 @@ public class ReservationController {
 
 	@GetMapping("/reservations")
 	public List<Reservation> search(){
+		LOGGER.info("inicio metodo search");
 		return (List<Reservation>) this.service.search();	
 	}
 
 	@GetMapping("/reservations/read/properties")
 	public String getProperties() throws JsonProcessingException {
+		LOGGER.info("inicio metodo getProperties");
 		ObjectWriter owj = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		ReservationsProperties reservationsProperties = new ReservationsProperties();
 		reservationsProperties.setMsg(reservationsConfiguration.getMsg());
