@@ -15,6 +15,7 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
   - Patron Circuit Breaker
   - Metodo fallbackMethod
   - Patron retry
+- Spring Cloud Gateway
 
 ### Comandos realizados en este proyecto
 
@@ -22,8 +23,9 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - docker build . -t leo7medina/hotels
 - docker build . -t leo7medina/reservations
 - docker build . -t leo7medina/rooms
-- docker build . -t leo7medina/config-server
-- docker build . -t leo7medina/eureka-server
+- docker build . -t leo7medina/configserver
+- docker build . -t leo7medina/eurekaserver
+- docker build . -t leo7medina/gatewayserver
 
 #### Construir contenedores
 - docker run -d -p 8080:8080 --name hotels -e CONFIG_SERVER=http://config-server:8085/ -e EUREKA_SERVER=http://eureka-server:8065/eureka/ leo7medina/hotels
@@ -41,8 +43,9 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - docker push docker.io/leo7medina/hotels
 - docker push docker.io/leo7medina/reservations
 - docker push docker.io/leo7medina/rooms
-- docker push docker.io/leo7medina/config-server
-- docker push docker.io/leo7medina/eureka-server
+- docker push docker.io/leo7medina/configserver
+- docker push docker.io/leo7medina/eurekaserver
+- docker push docker.io/leo7medina/gatewayserver
 
 #### Login a DockerHub
 - docker login -u "usuario" -p "password" docker.io
