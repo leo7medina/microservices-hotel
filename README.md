@@ -6,7 +6,7 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 ## Temas vistos:
 - Construcción de microservicios con Spring Boot 3
 - Spring Cloud
-- Use de base datos H2
+- Uso de base datos H2
 - Creación de imagénes y contenedores con Docker
 - Configuración centralizada de microservicios
 - Registro y descubrimiento de microservicios
@@ -19,6 +19,8 @@ Este proyecto se basa en comprender como funciona la arquitectura de microservic
 - Trazabilidad distribuida en microservicios
   - Sleuth
   - Zipkin
+- Seguridad de microservicios con OAuth 2
+  - Keycloak
 
 ### Comandos realizados en este proyecto
 
