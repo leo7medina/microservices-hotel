@@ -68,3 +68,6 @@ Metodo POST
 
 ### Zipkint con docker
 - docker run -d -p 9411:9411 --name zipkin openzipkin/zipkin
+
+### Keycloak with docker
+- docker run -d -p 8889:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin —name keycloak -v v_keycloak-data:/opt/keycloak/data keycloak/keycloak:latest start-dev
